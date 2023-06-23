@@ -3,6 +3,7 @@
 using namespace std;
 
 // 在此处补充你的代码
+
 string Print1() 
 {
 	return "****";	

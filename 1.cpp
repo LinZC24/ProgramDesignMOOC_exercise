@@ -1,3 +1,4 @@
+//填空，使得输出结果是：5,3
 #include <iostream>
 using namespace std;
 class A
@@ -7,6 +8,7 @@ class A
 	int getX() { return x; }	
 };
 void swap(
+  A & a, A & b
 // 在此处补充你的代码
 )
 {

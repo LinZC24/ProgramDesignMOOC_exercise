@@ -3,6 +3,13 @@
 using namespace std;
 
 class Array2 {
+  private:
+    int m, n;
+  public:
+    Array2(int ln, int col) {
+    m = ln;
+    n = col;
+  }
 // 在此处补充你的代码
 };
 

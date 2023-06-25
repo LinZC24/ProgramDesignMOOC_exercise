@@ -6,6 +6,9 @@ struct A
 	int v;
 	A(int vv):v(vv) { }
 // 在此处补充你的代码
+  const A* getPointer() const {
+    return this;
+  }
 };
 
 int main()

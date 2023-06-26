@@ -6,32 +6,31 @@ using namespace std;
 string redWarrior[5] {"dragon", "lion", "wolf", "ninja", "iceman"};
 string blueWarrior[5] {"wolf", "dragon", "ninja", "iceman", "wolf"};
 
+class operation;
 class base {
   private:
-    int hp, id;
-    bool stopBuilding = false;
+    int hp;
+    bool canBuild[5]{};
+    int warriotCount[5]{};
   public:
+    bool stop = false;
+    base() {}
     base(int currentBaseHP):hp(currentBaseHP) {}
-    void pause(int hp, int id) {
-      
-    }
+    //void build(int hp) {}
+    void build(int clock) {
 
+    }
+    ~base() {}
 };
 
 class operation {
   private:
-    map<string, int> redWarriorHP;
-    map<string, int> blueWarriorHP;
-    friend base;
+    int redID, blueID, clock;
+  public:
     base redBase;
     base blueBase;
-  public:
     operation() {}
-    operation(int m, int dHP, int nHP, int iHP, int lHP, int wHP):redBase(m), blueBase(m)  {
-      for(int i = 0; i < 5; i++) {
-        redWarriorHP[redWarrior[i]]
-      }
-    }
+    operation(int m):redBase(m), blueBase(m), redID(0), blueID(0), clock(0) {}
 };
 
 int main() {
@@ -40,7 +39,16 @@ int main() {
   for(int i = 1; i <= n; i++) {
     int m, dragonHP, ninjaHP, icemanHP, lionHP, wolfHP;
     cin >> m >> dragonHP >> ninjaHP >> icemanHP >> lionHP >> wolfHP;
+    map<string, int> warriorHP;
+    warriorHP["dragon"] = dragonHP;
+    warriorHP["ninja"] = ninjaHP;
+    warriorHP["iceman"] = icemanHP;
+    warriorHP["lion"] = lionHP;
+    warriorHP["wolf"] = wolfHP;
     cout << "Case:" << i << endl;
-    operation o;
+    operation o(m);
+    while(!o.redBase.stop && !o.blueBase.stop) {
+
+    }
   }
 }

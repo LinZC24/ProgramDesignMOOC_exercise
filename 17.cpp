@@ -4,6 +4,26 @@ using namespace std;
 
 class Array2 {
 // 在此处补充你的代码
+  private:
+    int row, col;
+    int **r;
+  public:
+    Array2() {}
+    Array2(int x, int y):row(x), col(y) {
+      if(x == 0) r = NULL;
+      else {
+        r = new int*[row];
+        for(int i = 0; i < col; i++) {
+          r[i] = new int[col];
+        }
+      }
+    }
+    int * operator[](int i) {
+      return r[i];
+    }
+    int operator()(int i, int j) {
+      return r[i][j];
+    }
 };
 
 int main() {

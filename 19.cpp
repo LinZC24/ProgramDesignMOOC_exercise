@@ -33,41 +33,112 @@ class MyString
 {
 // 在此处补充你的代码
   private:
-    string str;
+    char* str;
   public:
-    MyString() {}
-    MyString(string s):str(s) {}
-    friend ostream & operator << (ostream & o, MyString & s) {
+    MyString(char* s = NULL) {
+      if(s) {
+        str = new char[strlen(s) + 1];
+        strcpy(str, s);
+      }
+      else {
+        str = new char[1];
+        str[0] = '\0';
+      }
+    }
+    MyString(const MyString & s) {
+      if(s.str) {
+        str = new char[strlen(s.str) + 1];
+        strcpy(str, s.str);
+      }
+      else {
+        str = new char[1];
+        str[0] = '\0';
+      }
+    }
+    ~MyString() {
+      if(str) delete [] str;
+    }
+    friend ostream & operator << (ostream & o, const MyString & s) {
       o << s.str;
       return o;
     }
-    bool operator == (MyString & s) {
-      if(str.length() != s.str.length()) {
-        return false;
-      }
-      for(int i = 0; i < str.length(); i++) {
-        if(str[i] != s.str[i]) return false;
-      }
-      return true;
+    friend bool operator < (const MyString & s1, const MyString & s2) {
+      if(strcmp(s1.str, s2.str) < 0) return true;
+      else return false;
     }
-    bool operator > (MyString & s) {
-      
+    friend bool operator == (const MyString & s1, const MyString & s2) {
+      if(strcmp(s1.str, s2.str) == 0) return true;
+      else return false;
     }
-    bool operator < (MyString & s) {
-
+    friend bool operator > (const MyString & s1, const MyString & s2) {
+      if(strcmp(s1.str, s2.str) > 0) return true;
+      else return false;
     }
-    char operator [] (int i) {
-      return str[i];
+    friend MyString operator + (const MyString & a, const MyString & b) {
+      char * t = new char[strlen(a.str) + strlen(b.str) + 1];
+      strcpy(t, a.str);
+      strcat(t, b.str);
+      return MyString(t);
     }
-    MyString operator + (MyString & s) {
-      str += s.str;
+    friend MyString operator + (const MyString & a, const char * s) {
+      char * t = new char[strlen(a.str) + strlen(s) + 1];
+      strcpy(t, a.str);
+      strcat(t, s);
+      return MyString(t);
+    }
+    friend MyString operator + (const char * s, const MyString & a) {
+      char * t = new char[strlen(a.str) + strlen(s) + 1];
+      strcpy(t, s);
+      strcat(t, a.str);
+      return MyString(t);
+    }
+    MyString operator += (char* s) {
+      char* t = new char[strlen(str) + 1];
+      strcpy(t, str);
+      delete [] str;
+      str = new char [strlen(str) + strlen(s) + 1];
+      strcpy(str, t);
+      strcat(str, s);
       return *this;
     }
-    MyString operator = (string & s) {
-      str = s;
+    char & operator [] (int n) {
+      return str[n];
+    }
+    MyString operator () (int a, int b) {
+      char * t;
+      t = new char[b + 1];
+      for(int i = a, j = 0; i < a + b; i++, j++) {
+        t[j] = str[i];
+      }
+      t[b] = '\0';
+      return MyString(t);      
+    }
+    MyString & operator=(const MyString & s) {
+      if(str == s.str) return *this;
+      delete [] str;
+      if(s.str) {
+        str = new char[strlen(s.str) + 1];
+        strcpy(str, s.str);
+      }
+      else {
+        str = new char[1];
+        str[0] = '\0';
+      }
       return *this;
     }
-    
+    MyString & operator=(const char * s) {
+      if(str == s) return *this;
+      delete [] str;
+      if(s) {
+        str = new char[strlen(s) + 1];
+        strcpy(str, s);
+      }
+      else {
+        str = new char[1];
+        str[0] = '\0';
+      }
+      return *this;
+    }
 };
 
 
@@ -76,11 +147,11 @@ int CompareString( const void * e1, const void * e2)
 	MyString * s1 = (MyString * ) e1;
 	MyString * s2 = (MyString * ) e2;
 	if( * s1 < *s2 )
-	return -1;
+	  return -1;
 	else if( *s1 == *s2)
-	return 0;
+	  return 0;
 	else if( *s1 > *s2 )
-	return 1;
+	  return 1;
 }
 int main()
 {

@@ -21,7 +21,7 @@ class D: public B {
     }
     void Print() {
       B::Print();
-      cout << "nDval=" << nDval << endl;
+      cout << "nDVal=" << nDval << endl;
     }
 };
 

@@ -2,9 +2,11 @@
 #include <string>
 using namespace std;
 // 在此处补充你的代码
-template <class T, class T1>
-T MyForeach(T* s, T* e, T1 a) {
-  T result
+template <class T1, class T2>
+void MyForeach(T1* s, T1* e, void f(T2 t)) {
+  for(T1* i = s; i < e; i++) {
+    f(*i);
+  }
 }
 void Print(string s)
 {
